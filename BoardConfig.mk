@@ -82,6 +82,7 @@ TW_EXTERNAL_STORAGE_PATH := "/external_sd"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_NO_EXFAT_FUSE := true
 TW_NO_EXFAT := true
+TW_SCREEN_BLANK_ON_BOOT := true
 
 #cofface config
 RECOVERY_VARIANT := twrp
