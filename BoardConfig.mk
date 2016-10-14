@@ -23,6 +23,8 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
+LOCAL_PATH := device/xiaomi/nikel
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -68,10 +70,10 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
+ifeq ($(RECOVERY_VARIANT), twrp)
 # TWRP specific build flags
 BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_SDCARD_ON_DATA := true
-#TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_THEME := portrait_hdpi
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 RECOVERY_SDCARD_ON_DATA := true
@@ -83,9 +85,34 @@ TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_NO_EXFAT_FUSE := true
 TW_NO_EXFAT := true
 TW_SCREEN_BLANK_ON_BOOT := true
+TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
+TW_DEFAULT_BRIGHTNESS := 80
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+TWRP_EVENT_LOGGING := true
+TW_INCLUDE_CRYPTO := true
+
 
 #cofface config
-RECOVERY_VARIANT := twrp
+#RECOVERY_VARIANT := twrp
 TW_EXTRA_LANGUAGES := true
 TW_DEFAULT_LANGUAGE := zh_CN
-BOARD_DISABLE_BOOT_VERIFY := true
+#BOARD_DISABLE_BOOT_VERIFY := true
+
+else
+# CWM
+TARGET_DISABLE_BOOT_VERIFY := true
+#TARGET_AUTO_INSTALL_ZIP := true
+RECOVERY_HAD_EXTERNAL_SDCARD := true
+TARGET_ADD_ROOT_PHONE := true
+RECOVERY_SDCARD_ON_DATA := true
+TARGET_DISABLE_SIGCHECK := true
+#BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
+BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_RECOVERY_SWIPE := true
+BOARD_SUPPRESS_EMMC_WIPE := true
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/etc/recovery.fstab
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
+TARGET_USERIMAGES_USE_EXT4 := true
+
+endif

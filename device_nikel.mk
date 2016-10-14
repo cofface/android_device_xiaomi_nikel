@@ -20,6 +20,9 @@ PRODUCT_COPY_FILES += \
 
 
 #Add cofface prop
+PRODUCT_AAPT_CONFIG := normal xxhdpi
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.weibo.com=weibo.com/cofface
